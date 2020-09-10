@@ -6,4 +6,31 @@ class Api::ParamsExamplesController < ApplicationController
     render "query_params.json.jb"
   end
 
+  def name_action
+    my_name = params[:name].upcase
+    @message = my_name
+    if my_name.starts_with?("A")
+      @message = "Hey your name starts with A!"
+    end
+    render "name.json.jb"
+  end
+
+  def guess_query_action
+    @user_guess = params[:guess].to_i
+    winning_number = 42
+    if @user_guess > winning_number
+      @message = "guess lower!"
+    elsif @user_guess < winning_number
+      @message = "guess higher!"
+    else
+      @message = "you win!"
+    end
+    render "guess_query.json.jb"
+  end
+  
+  def url_segment_action
+    @message = "This url segment value is #{params[:wildcard]}"
+    render "url_segment.json.jb"
+  end
+
 end
